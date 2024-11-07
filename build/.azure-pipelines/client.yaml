@@ -1,19 +1,23 @@
 trigger:
--master
+- master
 
 pool:
-....vmImage: ubuntu-latest
+  vmImage: ubuntu-latest
 
 steps:
 - task: NodeTool@0
   inputs:
     versionSource: 'spec'
     versionSpec: 'v20.18.0'
+  displayName: 'install Node JS'
 - task: Npm@1
   inputs:
-    command: 'install'
-    workingDir: '../../src- task: PublishBuildArtifacts@1
+    customcommand: 'npm install && npm run build'
+    workingDir: '$(Build.ArtifactStagingDirectory)/src/devops_tutorial.client/package.json'
+  displayName: 'npm install and build'
+- task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)/src/devops_tutorial.client'
     ArtifactName: 'drop'
-    publishLocation: 'Container''
+    publishLocation: 'Container'
+  displayName: 'publish'
