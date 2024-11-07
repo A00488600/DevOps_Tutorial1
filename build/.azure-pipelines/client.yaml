@@ -10,6 +10,7 @@ steps:
     versionSource: 'spec'
     versionSpec: 'v20.18.0'
   displayName: 'install Node JS'
+
 - task: Npm@1
   inputs:
     customcommand: 'npm install && npm run build'
@@ -17,7 +18,7 @@ steps:
   displayName: 'npm install and build'
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)/src/devops_tutorial.client'
+    PathtoPublish: '$(Build.SourceDirectory)/src/devops_tutorial.client/dist'
     ArtifactName: 'drop'
     publishLocation: 'Container'
   displayName: 'publish'
