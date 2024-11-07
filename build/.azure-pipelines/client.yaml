@@ -1,0 +1,19 @@
+trigger:
+-master
+
+pool:
+....vmImage: ubuntu-latest
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSource: 'spec'
+    versionSpec: 'v20.18.0'
+- task: Npm@1
+  inputs:
+    command: 'install'
+    workingDir: '../../src- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/src/devops_tutorial.client'
+    ArtifactName: 'drop'
+    publishLocation: 'Container''
