@@ -5,37 +5,37 @@
 
 trigger:
   - master
-
+    
 pool:
-  vmImage: "ubuntu-latest"
-
+  vmImage: 'ubuntu-latest'
+  
 variables:
-  solution: "src/DevOps_Tutorial.Server/*.sln"
-  buildPlatform: "Any CPU"
-  buildConfiguration: "Release"
-
+  solution: 'src/DevOps_Tutorial.Server/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+    
 steps:
-  - script: |
-      mkdir -p ~/.aspnet/https
-    displayName: "Create HTTPS Certificate Directory"
-
-  - task: DotNetCoreCLI@2
-    displayName: "Build Project"
-    inputs:
-      command: "build"
-      projects: "src/DevOps_Tutorial.Server/*.csproj"
-      arguments: "--configuration $(buildConfiguration)"
-
-  - task: DotNetCoreCLI@2
-    displayName: "Package build for publishing"
-    inputs:
-      command: "publish"
-      publishWebProjects: true
-      arguments: '--configuration $(buildConfiguration) --output "$(build.artifactstagingdirectory)"'
-
-  - task: PublishBuildArtifacts@1
-    displayName: "Publish build artifact"
-    inputs:
-      PathtoPublish: "$(Build.ArtifactStagingDirectory)"
-      ArtifactName: "drop"
-      publishLocation: "Container"
+- script: |
+    mkdir -p ~/.aspnet/https
+  displayName: 'Create HTTPS Certificate Directory'
+       
+- task: DotNetCoreCLI@2
+  displayName: 'Build Project'
+  inputs:
+    command: 'build'
+    projects: 'src/DevOps_Tutorial.Server/*.csproj'
+    arguments: '--configuration $(buildConfiguration)'
+  
+- task: DotNetCoreCLI@2
+  displayName: 'Package build for publishing'
+  inputs:
+    command: 'publish'
+    publishWebProjects: true
+    arguments: '--configuration $(buildConfiguration) --output "$(build.artifactstagingdirectory)"'
+      
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish build artifact'
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
