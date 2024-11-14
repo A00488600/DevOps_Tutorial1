@@ -10,7 +10,7 @@ pool:
   vmImage: "ubuntu-latest"
 
 variables:
-  solution: "src/DevOps_Tutorial.sln/*.sln"
+  solution: "src/DevOps_Tutorial.Server/*.sln"
   buildPlatform: "Any CPU"
   buildConfiguration: "Release"
 
@@ -23,7 +23,7 @@ steps:
     displayName: "Build Project"
     inputs:
       command: "build"
-      projects: "src/DevOps_Tutorial.sln/*.csproj"
+      projects: "src/DevOps_Tutorial.Server/*.csproj"
       arguments: "--configuration $(buildConfiguration)"
 
   - task: DotNetCoreCLI@2
